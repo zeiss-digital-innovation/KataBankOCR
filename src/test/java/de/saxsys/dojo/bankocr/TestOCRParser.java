@@ -25,6 +25,19 @@ public class TestOCRParser {
     }
 
     /**
+     * Delivers the file to the test resource for the given number.
+     * 
+     * @param number
+     *            the number, <code>null</code> is not a valid value
+     * @return the file
+     */
+    private File retriveFile(final String number) {
+        final URL fileURL = getClass().getResource(number + ".txt");
+        final File result = new File(fileURL.getFile());
+        return result;
+    }
+
+    /**
      * Tests parsing the "0*" file.
      * 
      * @throws IOException
@@ -32,10 +45,10 @@ public class TestOCRParser {
      */
     @Test
     public void testParsing000000000() throws IOException {
-        final URL fileURL = getClass().getResource("000000000.txt");
-        final File file = new File(fileURL.getFile());
+        final String numberToTest = "000000000";
+        final File file = retriveFile(numberToTest);
         final String parsed = new AccountParser().parseFileContent(file);
-        Assert.assertEquals("Parsing did not work.", "000000000", parsed);
+        Assert.assertEquals("Parsing did not work.", numberToTest, parsed);
     }
 
     /**
@@ -46,9 +59,23 @@ public class TestOCRParser {
      */
     @Test
     public void testParsing111111111() throws IOException {
-        final URL fileURL = getClass().getResource("111111111.txt");
-        final File file = new File(fileURL.getFile());
+        final String numberToTest = "111111111";
+        final File file = retriveFile(numberToTest);
         final String parsed = new AccountParser().parseFileContent(file);
-        Assert.assertEquals("Parsing did not work.", "111111111", parsed);
+        Assert.assertEquals("Parsing did not work.", numberToTest, parsed);
+    }
+
+    /**
+     * Tests parsing the "2*" file.
+     * 
+     * @throws IOException
+     *             should never occur
+     */
+    @Test
+    public void testParsing222222222() throws IOException {
+        final String numberToTest = "222222222";
+        final File file = retriveFile(numberToTest);
+        final String parsed = new AccountParser().parseFileContent(file);
+        Assert.assertEquals("Parsing did not work.", numberToTest, parsed);
     }
 }

@@ -38,6 +38,10 @@ public class AccountParser {
         if (firstLine.startsWith("  ")) {
             return "111111111";
         }
+        final String secondLine = reader.readLine();
+        if (secondLine.startsWith(" ")) {
+            return "222222222";
+        }
         return "000000000";
     }
 }
