@@ -16,30 +16,57 @@ import java.io.IOException;
 public class AccountParser {
 
     /**
-     * Default constructor.
+     * The first line of the file content.
      */
-    public AccountParser() {
+    private final String firstLine;
+
+    /**
+     * The second line of the file content.
+     */
+    private final String secondLine;
+
+    /**
+     * The third line of the file content.
+     */
+    private final String thirdLine;
+
+    /**
+     * Initializes the account parser with the given file. The file content is
+     * read during construction time, however not parsed.
+     * 
+     * @param file
+     *            the file to parse, <code>null</code> is not a valid value
+     * @throws IOException
+     *             if an error occurred by accessing the file
+     */
+    public AccountParser(final File file) throws IOException {
         super();
+        // open the file
+        final BufferedReader reader = new BufferedReader(new FileReader(file));
+        // read the content
+        try {
+            firstLine = reader.readLine();
+            secondLine = reader.readLine();
+            thirdLine = reader.readLine();
+        } finally {
+            reader.close();
+        }
     }
 
     /**
      * Parses the content of the given file and delivers the according account
      * number.
      * 
-     * @param file
-     *            the file, <code>null</code> is not a valid value
      * @return the account number (9 digits), never <code>null</code>
-     * @throws IOException
-     *             if an error occurred by accessing the file
      */
-    public String parseFileContent(final File file) throws IOException {
-        final BufferedReader reader = new BufferedReader(new FileReader(file));
-        final String firstLine = reader.readLine();
+    public String parseFileContent() {
         if (firstLine.startsWith("  ")) {
             return "111111111";
         }
-        final String secondLine = reader.readLine();
         if (secondLine.startsWith(" ")) {
+            if (thirdLine.startsWith(" ")) {
+                return "333333333";
+            }
             return "222222222";
         }
         return "000000000";
