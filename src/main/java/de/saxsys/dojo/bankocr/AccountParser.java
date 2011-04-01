@@ -120,7 +120,11 @@ public class AccountParser {
                 if (isLeftBottomSet()) {
                     result = "222222222";
                 } else {
-                    result = "333333333";
+                    if (isMiddleSet()) {
+                        result = "333333333";
+                    } else {
+                        result = "777777777";
+                    }
                 }
             }
         } else {
