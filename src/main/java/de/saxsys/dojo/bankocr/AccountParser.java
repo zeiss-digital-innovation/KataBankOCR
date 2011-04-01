@@ -129,39 +129,85 @@ public class AccountParser {
      */
     public String parseFileContent() {
         String result = "UNKNOWN";
+        if (isMiddleSet()) {
+            result = parseMiddleIsSet();
+        } else {
+            result = parseMiddleIsUnset();
+        }
+        return result;
+    }
+
+    /**
+     * Parses a digit where the middle line is set.
+     * 
+     * @return the account number (9 digits), never <code>null</code>
+     */
+    private String parseMiddleIsSet() {
+        String result = "UNKNOWN";
+        if (isRightTopSet()) {
+            result = parseMiddleIsSetUpperRightIsSet();
+        } else {
+            result = parseMiddleIsSetUpperRightIsUnset();
+        }
+        return result;
+    }
+
+    /**
+     * Parses a digit where the middle line and the upper right line are set.
+     * 
+     * @return the account number (9 digits), never <code>null</code>
+     */
+    private String parseMiddleIsSetUpperRightIsSet() {
+        String result = "444444444";
         if (isTopSet()) {
             if (isLeftTopSet()) {
                 if (isLeftBottomSet()) {
-                    if (isMiddleSet()) {
-                        if (isRightTopSet()) {
-                            result = "888888888";
-                        } else {
-                            result = "666666666";
-                        }
-                    } else {
-                        result = "000000000";
-                    }
+                    result = "888888888";
                 } else {
-                    result = "555555555";
+                    result = "999999999";
                 }
             } else {
                 if (isLeftBottomSet()) {
                     result = "222222222";
                 } else {
-                    if (isMiddleSet()) {
-                        result = "333333333";
-                    } else {
-                        result = "777777777";
-                    }
+                    result = "333333333";
                 }
-            }
-        } else {
-            if (isLeftTopSet()) {
-                result = "444444444";
-            } else {
-                result = "111111111";
             }
         }
         return result;
     }
+
+    /**
+     * Parses a digit where the middle line is set, but the upper right line is
+     * NOT set.
+     * 
+     * @return the account number (9 digits), never <code>null</code>
+     */
+    private String parseMiddleIsSetUpperRightIsUnset() {
+        String result = "INTERNAL_ERROR";
+        if (isLeftBottomSet()) {
+            result = "666666666";
+        } else {
+            result = "555555555";
+        }
+        return result;
+    }
+
+    /**
+     * Parses a digit where the middle line is NOT set.
+     * 
+     * @return the account number (9 digits), never <code>null</code>
+     */
+    private String parseMiddleIsUnset() {
+        String result = "111111111";
+        if (isTopSet()) {
+            if (isLeftTopSet()) {
+                result = "000000000";
+            } else {
+                result = "777777777";
+            }
+        }
+        return result;
+    }
+
 }
