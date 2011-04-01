@@ -61,7 +61,10 @@ public class AccountParser {
      */
     public String parseFileContent() {
         if (firstLine.startsWith("  ")) {
-            return "111111111";
+            if (secondLine.startsWith(" ")) {
+                return "111111111";
+            }
+            return "444444444";
         }
         if (secondLine.startsWith(" ")) {
             if (thirdLine.startsWith(" ")) {
