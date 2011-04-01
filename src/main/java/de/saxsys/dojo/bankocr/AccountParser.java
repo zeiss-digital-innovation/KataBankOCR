@@ -54,13 +54,26 @@ public class AccountParser {
     }
 
     /**
+     * Determines whether a line is set within the given character.
+     * 
+     * @param character
+     *            the character
+     * @return <code>true</code> if the character is any line,
+     *         <code>false</code> if it is no line (empty)
+     */
+    private boolean isCharacterSet(final char character) {
+        final boolean result = (character != ' ');
+        return result;
+    }
+
+    /**
      * Determines whether the top line is set.
      * 
      * @return <code>true</code> if the line is set, <code>false</code>
      *         otherwise
      */
     private boolean isTopSet() {
-        final boolean result = !firstLine.startsWith("  ");
+        final boolean result = isCharacterSet(firstLine.charAt(1));
         return result;
     }
 
@@ -71,7 +84,18 @@ public class AccountParser {
      *         otherwise
      */
     private boolean isLeftTopSet() {
-        final boolean result = !secondLine.startsWith(" ");
+        final boolean result = isCharacterSet(secondLine.charAt(0));
+        return result;
+    }
+
+    /**
+     * Determines whether the upper line at the right side is set.
+     * 
+     * @return <code>true</code> if the line is set, <code>false</code>
+     *         otherwise
+     */
+    private boolean isRightTopSet() {
+        final boolean result = isCharacterSet(secondLine.charAt(2));
         return result;
     }
 
@@ -82,7 +106,7 @@ public class AccountParser {
      *         otherwise
      */
     private boolean isMiddleSet() {
-        final boolean result = (secondLine.charAt(1) != ' ');
+        final boolean result = isCharacterSet(secondLine.charAt(1));
         return result;
     }
 
@@ -93,7 +117,7 @@ public class AccountParser {
      *         otherwise
      */
     private boolean isLeftBottomSet() {
-        final boolean result = !thirdLine.startsWith(" ");
+        final boolean result = isCharacterSet(thirdLine.charAt(0));
         return result;
     }
 
@@ -109,7 +133,11 @@ public class AccountParser {
             if (isLeftTopSet()) {
                 if (isLeftBottomSet()) {
                     if (isMiddleSet()) {
-                        result = "666666666";
+                        if (isRightTopSet()) {
+                            result = "888888888";
+                        } else {
+                            result = "666666666";
+                        }
                     } else {
                         result = "000000000";
                     }

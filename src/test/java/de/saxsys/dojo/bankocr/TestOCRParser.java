@@ -56,6 +56,7 @@ public class TestOCRParser {
         result.add(new String[] { "555555555" });
         result.add(new String[] { "666666666" });
         result.add(new String[] { "777777777" });
+        result.add(new String[] { "888888888" });
         return result;
     }
 
