@@ -5,14 +5,13 @@ import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import java.io.StringReader;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.matchers.JUnitMatchers;
 
 /**
  * Tests Story One.
  * 
- * @author sebastian.schmeck
+ * @author Sebastian Schmeck
  */
 public class OcrScannerStoryParsingTest {
 
@@ -29,9 +28,9 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineOnes() throws Exception {
 		String str = "" + //
-		"                           \n" + //
-		"  |  |  |  |  |  |  |  |  |\n" + //
-		"  |  |  |  |  |  |  |  |  |\n";
+				"                           \n" + //
+				"  |  |  |  |  |  |  |  |  |\n" + //
+				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("111111111"));
 	}
@@ -39,9 +38,9 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineTwos() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		" _| _| _| _| _| _| _| _| _|\n" + //
-		"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("222222222"));
 	}
@@ -49,9 +48,9 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineThrees() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		" _| _| _| _| _| _| _| _| _|\n" + //
-		" _| _| _| _| _| _| _| _| _|\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("333333333"));
 	}
@@ -59,9 +58,9 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineFours() throws Exception {
 		String str = "" + //
-		"                           \n" + //
-		"|_||_||_||_||_||_||_||_||_|\n" + //
-		"  |  |  |  |  |  |  |  |  |\n";
+				"                           \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n" + //
+				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("444444444"));
 	}
@@ -69,9 +68,9 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineFives() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
-		" _| _| _| _| _| _| _| _| _|\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("555555555"));
 	}
@@ -79,29 +78,29 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineSix() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
-		"|_||_||_||_||_||_||_||_||_|\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("666666666"));
 	}
-	
+
 	@Test
 	public void readALineOfNineSevens() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		"  |  |  |  |  |  |  |  |  |\n" + //
-		"  |  |  |  |  |  |  |  |  |\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"  |  |  |  |  |  |  |  |  |\n" + //
+				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("777777777"));
 	}
-	
+
 	@Test
 	public void readALineOfNineEights() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		"|_||_||_||_||_||_||_||_||_|\n" + //
-		"|_||_||_||_||_||_||_||_||_|\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n" + //
+				"|_||_||_||_||_||_||_||_||_|\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("888888888"));
 	}
@@ -109,9 +108,9 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineOfNineNines() throws Exception {
 		String str = "" + //
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		"|_||_||_||_||_||_||_||_||_|\n" + //
-		" _| _| _| _| _| _| _| _| _|\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("999999999"));
 	}
@@ -119,24 +118,24 @@ public class OcrScannerStoryParsingTest {
 	@Test
 	public void readALineWithDigitsFromOneToNine() throws Exception {
 		String str = "" + //
-		"    _  _     _  _  _  _  _ \n" + //
-		"  | _| _||_||_ |_   ||_||_|\n" + //
-		"  ||_  _|  | _||_|  ||_| _|\n";
+				"    _  _     _  _  _  _  _ \n" + //
+				"  | _| _||_||_ |_   ||_||_|\n" + //
+				"  ||_  _|  | _||_|  ||_| _|\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(new StringReader(str)), hasItem("123456789"));
 	}
 
 	@Test
-	@Ignore
 	public void readTwoLinesOfDigits() throws Exception {
-		String str = "" + //
-		"    _  _     _  _  _  _  _ \n" + //
-		"  | _| _||_||_ |_   ||_||_|\n" + //
-		"  ||_  _|  | _||_|  ||_| _|\n\n" +
-		" _  _  _  _  _  _  _  _  _ \n" + //
-		"| || || || || || || || || |\n" + //
-		"|_||_||_||_||_||_||_||_||_|\n";
+		String str = "" //
+				+ "    _  _     _  _  _  _  _ \n" //
+				+ "  | _| _||_||_ |_   ||_||_|\n" //
+				+ "  ||_  _|  | _||_|  ||_| _|\n\n" //
+				+ " _  _  _  _  _  _  _  _  _ \n" //
+				+ "| || || || || || || || || |\n" //
+				+ "|_||_||_||_||_||_||_||_||_|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(new StringReader(str)), JUnitMatchers.hasItems("123456789","000000000"));
+		assertThat(scanner.read(new StringReader(str)),
+				JUnitMatchers.hasItems("123456789", "000000000"));
 	}
 }

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,21 +14,34 @@ public class OcrScanner {
 	private final static Pattern THREE_CHARS = Pattern.compile("[ |_]{3}");;
 
 	public Iterable<String> read(Reader reader) {
-		StringBuilder sb = new StringBuilder();
-	
-		// TODO BufferedReader Ressourcen freigeben und Fehler behandeln
-		for (String digit : getDigits(new BufferedReader(reader))) {
-			sb.append(Digit.value(digit).intValue());
-		}
+		List<String> accountNumberList = new ArrayList<String>();
 
-		return Arrays.asList(sb.toString());
+		// TODO BufferedReader Ressourcen freigeben und Fehler behandeln
+		BufferedReader bufferedReader = new BufferedReader(reader);
+
+		List<String> digitsOfOneLine = null;
+		while (!(digitsOfOneLine = getDigitsOfOneLine(bufferedReader))
+				.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			for (String digit : digitsOfOneLine) {
+				sb.append(Digit.value(digit).intValue());
+			}
+			accountNumberList.add(sb.toString());
+		}
+		return accountNumberList;
 	}
 
-	private List<String> getDigits(BufferedReader bufferedReader) {
+	private List<String> getDigitsOfOneLine(BufferedReader bufferedReader) {
 
-		List<String> threeCharactersPartsOfLineOne = getThreeCharacterParts(getNextLine(bufferedReader));
+		String firstLine = getNextLine(bufferedReader);
+		if (null == firstLine || firstLine.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<String> threeCharactersPartsOfLineOne = getThreeCharacterParts(firstLine);
 		List<String> threeCharactersPartsOfLineTwo = getThreeCharacterParts(getNextLine(bufferedReader));
 		List<String> threeCharactersPartsOfLineThree = getThreeCharacterParts(getNextLine(bufferedReader));
+		getNextLine(bufferedReader);
 
 		List<String> digitList = new ArrayList<String>();
 		for (int i = 0; i < 9; i++) {
@@ -56,5 +69,4 @@ public class OcrScanner {
 		}
 		return nextLine;
 	}
-
 }
