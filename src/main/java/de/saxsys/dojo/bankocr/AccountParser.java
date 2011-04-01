@@ -69,55 +69,70 @@ public class AccountParser {
     /**
      * Determines whether the top line is set.
      * 
+     * @param position
+     *            the position of the digit to look up (0...9)
      * @return <code>true</code> if the line is set, <code>false</code>
      *         otherwise
      */
-    private boolean isTopSet() {
-        final boolean result = isCharacterSet(firstLine.charAt(1));
+    private boolean isTopSet(final short position) {
+        final int offset = 3 * position + 1;
+        final boolean result = isCharacterSet(firstLine.charAt(offset));
         return result;
     }
 
     /**
      * Determines whether the upper line at the left side is set.
      * 
+     * @param position
+     *            the position of the digit to look up (0...9)
      * @return <code>true</code> if the line is set, <code>false</code>
      *         otherwise
      */
-    private boolean isLeftTopSet() {
-        final boolean result = isCharacterSet(secondLine.charAt(0));
+    private boolean isLeftTopSet(final short position) {
+        final int offset = 3 * position;
+        final boolean result = isCharacterSet(secondLine.charAt(offset));
         return result;
     }
 
     /**
      * Determines whether the upper line at the right side is set.
      * 
+     * @param position
+     *            the position of the digit to look up (0...9)
      * @return <code>true</code> if the line is set, <code>false</code>
      *         otherwise
      */
-    private boolean isRightTopSet() {
-        final boolean result = isCharacterSet(secondLine.charAt(2));
+    private boolean isRightTopSet(final short position) {
+        final int offset = 3 * position + 2;
+        final boolean result = isCharacterSet(secondLine.charAt(offset));
         return result;
     }
 
     /**
      * Determines whether the middle line is set.
      * 
+     * @param position
+     *            the position of the digit to look up (0...9)
      * @return <code>true</code> if the line is set, <code>false</code>
      *         otherwise
      */
-    private boolean isMiddleSet() {
-        final boolean result = isCharacterSet(secondLine.charAt(1));
+    private boolean isMiddleSet(final short position) {
+        final int offset = 3 * position + 1;
+        final boolean result = isCharacterSet(secondLine.charAt(offset));
         return result;
     }
 
     /**
      * Determines whether the bottom line at the left side is set.
      * 
+     * @param position
+     *            the position of the digit to look up (0...9)
      * @return <code>true</code> if the line is set, <code>false</code>
      *         otherwise
      */
-    private boolean isLeftBottomSet() {
-        final boolean result = isCharacterSet(thirdLine.charAt(0));
+    private boolean isLeftBottomSet(final short position) {
+        final int offset = 3 * position;
+        final boolean result = isCharacterSet(thirdLine.charAt(offset));
         return result;
     }
 
@@ -128,11 +143,26 @@ public class AccountParser {
      * @return the account number (9 digits), never <code>null</code>
      */
     public String parseFileContent() {
-        String result = "UNKNOWN";
-        if (isMiddleSet()) {
-            result = parseMiddleIsSet();
+        final StringBuilder result = new StringBuilder();
+        for (short position = (short) 0; position < 9; position++) {
+            result.append(parseDigit(position));
+        }
+        return result.toString();
+    }
+
+    /**
+     * Parses the specified digit.
+     * 
+     * @param position
+     *            the digit to parse (0...9)
+     * @return the parsed digit, never <code>null</code>
+     */
+    public String parseDigit(final short position) {
+        String result;
+        if (isMiddleSet(position)) {
+            result = parseMiddleIsSet(position);
         } else {
-            result = parseMiddleIsUnset();
+            result = parseMiddleIsUnset(position);
         }
         return result;
     }
@@ -140,14 +170,16 @@ public class AccountParser {
     /**
      * Parses a digit where the middle line is set.
      * 
-     * @return the account number (9 digits), never <code>null</code>
+     * @param position
+     *            the digit to parse (0...9)
+     * @return the parsed digit, never <code>null</code>
      */
-    private String parseMiddleIsSet() {
-        String result = "UNKNOWN";
-        if (isRightTopSet()) {
-            result = parseMiddleIsSetUpperRightIsSet();
+    private String parseMiddleIsSet(final short position) {
+        String result;
+        if (isRightTopSet(position)) {
+            result = parseMiddleIsSetUpperRightIsSet(position);
         } else {
-            result = parseMiddleIsSetUpperRightIsUnset();
+            result = parseMiddleIsSetUpperRightIsUnset(position);
         }
         return result;
     }
@@ -155,22 +187,24 @@ public class AccountParser {
     /**
      * Parses a digit where the middle line and the upper right line are set.
      * 
-     * @return the account number (9 digits), never <code>null</code>
+     * @param position
+     *            the digit to parse (0...9)
+     * @return the parsed digit, never <code>null</code>
      */
-    private String parseMiddleIsSetUpperRightIsSet() {
-        String result = "444444444";
-        if (isTopSet()) {
-            if (isLeftTopSet()) {
-                if (isLeftBottomSet()) {
-                    result = "888888888";
+    private String parseMiddleIsSetUpperRightIsSet(final short position) {
+        String result = "4";
+        if (isTopSet(position)) {
+            if (isLeftTopSet(position)) {
+                if (isLeftBottomSet(position)) {
+                    result = "8";
                 } else {
-                    result = "999999999";
+                    result = "9";
                 }
             } else {
-                if (isLeftBottomSet()) {
-                    result = "222222222";
+                if (isLeftBottomSet(position)) {
+                    result = "2";
                 } else {
-                    result = "333333333";
+                    result = "3";
                 }
             }
         }
@@ -181,14 +215,16 @@ public class AccountParser {
      * Parses a digit where the middle line is set, but the upper right line is
      * NOT set.
      * 
-     * @return the account number (9 digits), never <code>null</code>
+     * @param position
+     *            the digit to parse (0...9)
+     * @return the parsed digit, never <code>null</code>
      */
-    private String parseMiddleIsSetUpperRightIsUnset() {
-        String result = "INTERNAL_ERROR";
-        if (isLeftBottomSet()) {
-            result = "666666666";
+    private String parseMiddleIsSetUpperRightIsUnset(final short position) {
+        String result;
+        if (isLeftBottomSet(position)) {
+            result = "6";
         } else {
-            result = "555555555";
+            result = "5";
         }
         return result;
     }
@@ -196,15 +232,17 @@ public class AccountParser {
     /**
      * Parses a digit where the middle line is NOT set.
      * 
-     * @return the account number (9 digits), never <code>null</code>
+     * @param position
+     *            the digit to parse (0...9)
+     * @return the parsed digit, never <code>null</code>
      */
-    private String parseMiddleIsUnset() {
-        String result = "111111111";
-        if (isTopSet()) {
-            if (isLeftTopSet()) {
-                result = "000000000";
+    private String parseMiddleIsUnset(final short position) {
+        String result = "1";
+        if (isTopSet(position)) {
+            if (isLeftTopSet(position)) {
+                result = "0";
             } else {
-                result = "777777777";
+                result = "7";
             }
         }
         return result;
