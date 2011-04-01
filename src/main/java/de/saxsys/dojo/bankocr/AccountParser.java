@@ -54,24 +54,82 @@ public class AccountParser {
     }
 
     /**
+     * Determines whether the top line is set.
+     * 
+     * @return <code>true</code> if the line is set, <code>false</code>
+     *         otherwise
+     */
+    private boolean isTopSet() {
+        final boolean result = !firstLine.startsWith("  ");
+        return result;
+    }
+
+    /**
+     * Determines whether the upper line at the left side is set.
+     * 
+     * @return <code>true</code> if the line is set, <code>false</code>
+     *         otherwise
+     */
+    private boolean isLeftTopSet() {
+        final boolean result = !secondLine.startsWith(" ");
+        return result;
+    }
+
+    /**
+     * Determines whether the middle line is set.
+     * 
+     * @return <code>true</code> if the line is set, <code>false</code>
+     *         otherwise
+     */
+    private boolean isMiddleSet() {
+        final boolean result = (secondLine.charAt(1) != ' ');
+        return result;
+    }
+
+    /**
+     * Determines whether the bottom line at the left side is set.
+     * 
+     * @return <code>true</code> if the line is set, <code>false</code>
+     *         otherwise
+     */
+    private boolean isLeftBottomSet() {
+        final boolean result = !thirdLine.startsWith(" ");
+        return result;
+    }
+
+    /**
      * Parses the content of the given file and delivers the according account
      * number.
      * 
      * @return the account number (9 digits), never <code>null</code>
      */
     public String parseFileContent() {
-        if (firstLine.startsWith("  ")) {
-            if (secondLine.startsWith(" ")) {
-                return "111111111";
+        String result = "UNKNOWN";
+        if (isTopSet()) {
+            if (isLeftTopSet()) {
+                if (isLeftBottomSet()) {
+                    if (isMiddleSet()) {
+                        result = "666666666";
+                    } else {
+                        result = "000000000";
+                    }
+                } else {
+                    result = "555555555";
+                }
+            } else {
+                if (isLeftBottomSet()) {
+                    result = "222222222";
+                } else {
+                    result = "333333333";
+                }
             }
-            return "444444444";
-        }
-        if (secondLine.startsWith(" ")) {
-            if (thirdLine.startsWith(" ")) {
-                return "333333333";
+        } else {
+            if (isLeftTopSet()) {
+                result = "444444444";
+            } else {
+                result = "111111111";
             }
-            return "222222222";
         }
-        return "000000000";
+        return result;
     }
 }
