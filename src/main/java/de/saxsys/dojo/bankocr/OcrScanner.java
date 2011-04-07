@@ -1,8 +1,10 @@
 package de.saxsys.dojo.bankocr;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,12 +15,24 @@ public class OcrScanner {
 
 	private final static Pattern THREE_CHARS = Pattern.compile("[ |_]{3}");;
 
-	public Iterable<String> read(Reader reader) {
+	public List<String> read(File reader) {
+
+		BufferedReader bufferedReader = null;
+		try {
+			bufferedReader = new BufferedReader(new FileReader(reader));
+			return extractAccountNumbers(bufferedReader);
+		} catch (FileNotFoundException e) {
+			return Collections.emptyList();
+		} finally {
+			try {
+				if (null != bufferedReader) bufferedReader.close();
+			} catch (IOException e) {
+			}
+		}
+	}
+
+	private List<String> extractAccountNumbers(BufferedReader bufferedReader) {
 		List<String> accountNumberList = new ArrayList<String>();
-
-		// TODO BufferedReader Ressourcen freigeben und Fehler behandeln
-		BufferedReader bufferedReader = new BufferedReader(reader);
-
 		List<String> digitsOfOneLine = null;
 		while (!(digitsOfOneLine = getDigitsOfOneLine(bufferedReader))
 				.isEmpty()) {
