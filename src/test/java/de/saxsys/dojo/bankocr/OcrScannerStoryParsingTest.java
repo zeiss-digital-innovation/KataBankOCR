@@ -1,6 +1,7 @@
 package de.saxsys.dojo.bankocr;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 
@@ -9,7 +10,6 @@ import java.io.FileWriter;
 
 import org.junit.After;
 import org.junit.Test;
-import org.junit.matchers.JUnitMatchers;
 
 /**
  * Tests Story One.
@@ -23,9 +23,9 @@ public class OcrScannerStoryParsingTest {
 	@After
 	public void removeTestFile() {
 		File file = new File(FILE_NAME);
-		assertThat(file.delete(), is(true));;
+		assertThat(file.delete(), is(true));
 	}
-	
+
 	@Test
 	public void readALineOfNineZeros() throws Exception {
 		String str = "" + //
@@ -144,20 +144,38 @@ public class OcrScannerStoryParsingTest {
 				+ "  ||_  _|  | _||_|  ||_| _|\n\n" //
 				+ " _  _  _  _  _  _  _  _  _ \n" //
 				+ "| || || || || || || || || |\n" //
-				+ "|_||_||_||_||_||_||_||_||_|\n";
+				+ "|_||_||_||_||_||_||_||_||_|\n\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createFileFor(str)),
-				JUnitMatchers.hasItems("123456789", "000000000"));
+				contains("123456789", "000000000"));
 	}
-	
+
+	@Test
+	public void readThreeLinesOfDigits() throws Exception {
+		String str = "" //
+				+ " _  _  _  _  _  _  _  _  _ \n" //
+				+ "|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" //
+				+ "|_||_||_||_||_||_||_||_||_|\n\n" //
+				+ "    _  _     _  _  _  _  _ \n" //
+				+ "  | _| _||_||_ |_   ||_||_|\n" //
+				+ "  ||_  _|  | _||_|  ||_| _|\n\n" //
+				+ " _  _  _  _  _  _  _  _  _ \n" //
+				+ "| || || || || || || || || |\n" //
+				+ "|_||_||_||_||_||_||_||_||_|\n\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createFileFor(str)),
+				contains("666666666", "123456789", "000000000"));
+	}
+
 	private File createFileFor(String str) throws Exception {
-		
+
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(FILE_NAME);
-			writer.write(str);		
+			writer.write(str);
 		} finally {
-			if (null != writer) writer.close();
+			if (null != writer)
+				writer.close();
 		}
 		return new File(FILE_NAME);
 	}
