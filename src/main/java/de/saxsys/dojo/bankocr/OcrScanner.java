@@ -15,14 +15,17 @@ public class OcrScanner {
 			for (String digit : digitsOfOneLine) {
 				sb.append(Digit.value(digit).character());
 			}
-
-			if (sb.toString().contains("?")) {
-				sb.append(" ILL");
-			} else if (!new AccountNumberValidator().isValid(sb.toString())) {
-				sb.append(" ERR");
-			}
+			evaluateAccountNumber(sb);
 			accountNumberList.add(sb.toString());
 		}
 		return accountNumberList;
+	}
+
+	private void evaluateAccountNumber(StringBuilder sb) {
+		if (sb.toString().contains("?")) {
+			sb.append(" ILL");
+		} else if (!AccountNumberValidator.isValid(sb.toString())) {
+			sb.append(" ERR");
+		}
 	}
 }

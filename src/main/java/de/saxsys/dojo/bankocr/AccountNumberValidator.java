@@ -4,7 +4,7 @@ public class AccountNumberValidator {
 
 	private static final int MAGIC_VALIDATION_NUMBER = 11;
 
-	public boolean isValid(String accountNo) {
+	public static boolean isValid(String accountNo) {
 
 		int checksum = 0;
 		char[] digits = accountNo.toCharArray();
@@ -14,7 +14,7 @@ public class AccountNumberValidator {
 		return 0 == (checksum % MAGIC_VALIDATION_NUMBER);
 	}
 
-	private int getIntValueAtIndex(char[] digits, int index) {
+	private static int getIntValueAtIndex(char[] digits, int index) {
 		return Integer.parseInt(String.valueOf(digits[index]));
 	}
 }
