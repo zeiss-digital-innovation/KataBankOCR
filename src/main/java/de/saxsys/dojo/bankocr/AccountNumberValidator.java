@@ -2,20 +2,19 @@ package de.saxsys.dojo.bankocr;
 
 public class AccountNumberValidator {
 
+	private static final int MAGIC_VALIDATION_NUMBER = 11;
+
 	public boolean isValid(String accountNo) {
 
 		int checksum = 0;
 		char[] digits = accountNo.toCharArray();
-		checksum += Integer.parseInt(String.valueOf(digits[8])) * 1;
-		checksum += Integer.parseInt(String.valueOf(digits[7])) * 2;
-		checksum += Integer.parseInt(String.valueOf(digits[6])) * 3;
-		checksum += Integer.parseInt(String.valueOf(digits[5])) * 4;
-		checksum += Integer.parseInt(String.valueOf(digits[4])) * 5;
-		checksum += Integer.parseInt(String.valueOf(digits[3])) * 6;
-		checksum += Integer.parseInt(String.valueOf(digits[2])) * 7;
-		checksum += Integer.parseInt(String.valueOf(digits[1])) * 8;
-		checksum += Integer.parseInt(String.valueOf(digits[0])) * 9;
+		for (int i = 0; i < digits.length; i++) {
+			checksum += getIntValueAtIndex(digits, i) * (digits.length - i);
+		}
+		return 0 == (checksum % MAGIC_VALIDATION_NUMBER);
+	}
 
-		return 0 == (checksum % 11);
+	private int getIntValueAtIndex(char[] digits, int index) {
+		return Integer.parseInt(String.valueOf(digits[index]));
 	}
 }
