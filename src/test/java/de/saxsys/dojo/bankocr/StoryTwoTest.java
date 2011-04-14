@@ -62,4 +62,11 @@ public class StoryTwoTest {
 		AccountNumberValidator validator = new AccountNumberValidator();
 		Assert.assertThat(validator.isValid("000000124"), is(true));
 	}
+
+	@Test
+	public void OneInFrontAndTwoAtTheEndIsValid() throws Exception {
+
+		AccountNumberValidator validator = new AccountNumberValidator();
+		Assert.assertThat(validator.isValid("100000002"), is(true));
+	}
 }
