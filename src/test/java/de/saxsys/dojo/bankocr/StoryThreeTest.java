@@ -2,8 +2,10 @@ package de.saxsys.dojo.bankocr;
 
 import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Test;
 
@@ -38,6 +40,17 @@ public class StoryThreeTest {
 				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
-				hasItem("1?1111111"));
+				hasItem(startsWith("1?1111111")));
+	}
+
+	@Test
+	public void ifUnknownSignsFoundThenAppendIll() throws Exception {
+		String str = "" + //
+				"                           \n" + //
+				"  | _|  |  |  |  |  |  |  |\n" + //
+				"  |  |  |  |  |  |  |  |  |\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				hasItem(Matchers.endsWith(" ILL")));
 	}
 }

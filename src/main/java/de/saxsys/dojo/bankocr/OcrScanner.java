@@ -15,6 +15,11 @@ public class OcrScanner {
 			for (String digit : digitsOfOneLine) {
 				sb.append(Digit.value(digit).character());
 			}
+
+			if (sb.toString().contains("?")) {
+				sb.append(" ILL");
+			}
+
 			accountNumberList.add(sb.toString());
 		}
 		return accountNumberList;
