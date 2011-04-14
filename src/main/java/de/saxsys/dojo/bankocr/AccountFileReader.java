@@ -15,24 +15,20 @@ public class AccountFileReader {
 
 	private final static Pattern THREE_CHARS = Pattern.compile("[ |_]{3}");;
 
-	private BufferedReader bufferedReader;
+	private final BufferedReader bufferedReader;
 
 	public AccountFileReader(File accountFile) {
 		try {
 			bufferedReader = new BufferedReader(new FileReader(accountFile));
 		} catch (FileNotFoundException e) {
-			bufferedReader = null;
+			throw new RuntimeException("some trouble", e);
 		}
 	}
 
 	public List<String> getDigitsOfOneLine() {
 
-		if (null == bufferedReader) {
-			return cleanUpAndReturnEmptyList();
-		}
-
 		String firstLine = getNextLine();
-		if (null == firstLine || firstLine.isEmpty()) {
+		if (firstLine.isEmpty()) {
 			return cleanUpAndReturnEmptyList();
 		}
 
@@ -55,6 +51,7 @@ public class AccountFileReader {
 			try {
 				bufferedReader.close();
 			} catch (IOException e) {
+				throw new RuntimeException("some trouble", e);
 			}
 		return Collections.emptyList();
 	}
@@ -69,10 +66,15 @@ public class AccountFileReader {
 	}
 
 	private String getNextLine() {
+
 		try {
-			return (null != bufferedReader) ? bufferedReader.readLine() : "";
+			if (null != bufferedReader) {
+				String line = bufferedReader.readLine();
+				return (null == line) ? "" : line;
+			}
 		} catch (IOException e) {
-			return "";
+			throw new RuntimeException("some trouble", e);
 		}
+		return "";
 	}
 }
