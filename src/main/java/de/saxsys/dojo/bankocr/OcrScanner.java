@@ -13,7 +13,12 @@ public class OcrScanner {
 		while (!(digitsOfOneLine = reader.getDigitsOfOneLine()).isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			for (String digit : digitsOfOneLine) {
-				sb.append(Digit.value(digit).intValue());
+				Digit resolvedDigit = Digit.value(digit);
+				if (null == resolvedDigit) {
+					sb.append("?");
+				} else {
+					sb.append(resolvedDigit.intValue());
+				}
 			}
 			accountNumberList.add(sb.toString());
 		}
