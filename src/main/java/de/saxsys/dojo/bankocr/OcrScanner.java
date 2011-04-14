@@ -15,13 +15,14 @@ public class OcrScanner {
 			for (String digit : digitsOfOneLine) {
 				sb.append(Digit.value(digit).character());
 			}
-			evaluateAccountNumber(sb);
+			evaluateAccountNumber(sb, accountNumberList);
 			accountNumberList.add(sb.toString());
 		}
 		return accountNumberList;
 	}
 
-	private void evaluateAccountNumber(StringBuilder sb) {
+	private void evaluateAccountNumber(StringBuilder sb,
+			List<String> accountNumberList) {
 		if (sb.toString().contains("?")) {
 			sb.append(" ILL");
 		} else if (!AccountNumberValidator.isValid(sb.toString())) {
