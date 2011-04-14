@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -44,7 +45,7 @@ public class StoryThreeTest {
 	}
 
 	@Test
-	public void ifUnknownSignsFoundThenAppendIll() throws Exception {
+	public void ifUnknownSignsFoundThenAppendILL() throws Exception {
 		String str = "" + //
 				"                           \n" + //
 				"  | _|  |  |  |  |  |  |  |\n" + //
@@ -52,5 +53,17 @@ public class StoryThreeTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				hasItem(Matchers.endsWith(" ILL")));
+	}
+
+	@Test
+	@Ignore("Fix Tests of Story One!")
+	public void ifInvalidNumbersFoundThenAppendERR() throws Exception {
+		String str = "" + //
+				"                           \n" + //
+				"  |  |  |  |  |  |  |  |  |\n" + //
+				"  |  |  |  |  |  |  |  |  |\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				hasItem(Matchers.endsWith(" ERR")));
 	}
 }
