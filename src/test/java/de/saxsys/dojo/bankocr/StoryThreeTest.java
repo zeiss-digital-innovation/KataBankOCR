@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -56,7 +55,6 @@ public class StoryThreeTest {
 	}
 
 	@Test
-	@Ignore("Fix Tests of Story One!")
 	public void ifInvalidNumbersFoundThenAppendERR() throws Exception {
 		String str = "" + //
 				"                           \n" + //

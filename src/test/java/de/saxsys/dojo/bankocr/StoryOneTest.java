@@ -2,6 +2,7 @@ package de.saxsys.dojo.bankocr;
 
 import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 
@@ -31,6 +32,7 @@ import org.junit.Test;
  * 
  * @author Sebastian Schmeck
  */
+@SuppressWarnings("unchecked")
 public class StoryOneTest {
 
 	@After
@@ -45,7 +47,8 @@ public class StoryOneTest {
 				"| || || || || || || || || |\n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("000000000"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("000000000")));
 	}
 
 	@Test
@@ -55,7 +58,8 @@ public class StoryOneTest {
 				"  |  |  |  |  |  |  |  |  |\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("111111111"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("111111111")));
 	}
 
 	@Test
@@ -65,7 +69,8 @@ public class StoryOneTest {
 				" _| _| _| _| _| _| _| _| _|\n" + //
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("222222222"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("222222222")));
 	}
 
 	@Test
@@ -75,7 +80,8 @@ public class StoryOneTest {
 				" _| _| _| _| _| _| _| _| _|\n" + //
 				" _| _| _| _| _| _| _| _| _|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("333333333"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("333333333")));
 	}
 
 	@Test
@@ -85,7 +91,8 @@ public class StoryOneTest {
 				"|_||_||_||_||_||_||_||_||_|\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("444444444"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("444444444")));
 	}
 
 	@Test
@@ -95,7 +102,8 @@ public class StoryOneTest {
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
 				" _| _| _| _| _| _| _| _| _|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("555555555"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("555555555")));
 	}
 
 	@Test
@@ -105,7 +113,8 @@ public class StoryOneTest {
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("666666666"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("666666666")));
 	}
 
 	@Test
@@ -115,7 +124,8 @@ public class StoryOneTest {
 				"  |  |  |  |  |  |  |  |  |\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("777777777"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("777777777")));
 	}
 
 	@Test
@@ -125,7 +135,8 @@ public class StoryOneTest {
 				"|_||_||_||_||_||_||_||_||_|\n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("888888888"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("888888888")));
 	}
 
 	@Test
@@ -135,7 +146,8 @@ public class StoryOneTest {
 				"|_||_||_||_||_||_||_||_||_|\n" + //
 				" _| _| _| _| _| _| _| _| _|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("999999999"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("999999999")));
 	}
 
 	@Test
@@ -145,7 +157,8 @@ public class StoryOneTest {
 				"  | _| _||_||_ |_   ||_||_|\n" + //
 				"  ||_  _|  | _||_|  ||_| _|\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), hasItem("123456789"));
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("123456789")));
 	}
 
 	@Test
@@ -159,7 +172,7 @@ public class StoryOneTest {
 				+ "|_||_||_||_||_||_||_||_||_|\n\n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)),
-				contains("123456789", "000000000"));
+				contains(startsWith("123456789"), startsWith("000000000")));
 	}
 
 	@Test
@@ -175,7 +188,9 @@ public class StoryOneTest {
 				+ "| || || || || || || || || |\n" //
 				+ "|_||_||_||_||_||_||_||_||_|\n\n";
 		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				contains("666666666", "123456789", "000000000"));
+		assertThat(scanner.read(createDummyFileFor(str)), contains( //
+				startsWith("666666666"), //
+				startsWith("123456789"), //
+				startsWith("000000000")));
 	}
 }

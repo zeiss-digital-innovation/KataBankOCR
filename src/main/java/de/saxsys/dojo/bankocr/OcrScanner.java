@@ -19,7 +19,7 @@ public class OcrScanner {
 			if (sb.toString().contains("?")) {
 				sb.append(" ILL");
 			} else if (!new AccountNumberValidator().isValid(sb.toString())) {
-				// sb.append(" ERR");
+				sb.append(" ERR");
 			}
 			accountNumberList.add(sb.toString());
 		}
