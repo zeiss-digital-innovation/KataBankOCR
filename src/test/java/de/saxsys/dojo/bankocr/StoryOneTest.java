@@ -77,18 +77,6 @@ public class StoryOneTest {
 
 	@Test
 	@Ignore("wrong with story four")
-	public void readALineOfNineThrees() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				" _| _| _| _| _| _| _| _| _|\n" + //
-				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("333333333")));
-	}
-
-	@Test
-	@Ignore("wrong with story four")
 	public void readALineOfNineFours() throws Exception {
 		String str = "" + //
 				"                           \n" + //

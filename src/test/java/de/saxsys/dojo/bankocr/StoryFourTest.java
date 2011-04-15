@@ -69,4 +69,15 @@ public class StoryFourTest {
 				contains("200800000"));
 	}
 
+	@Test
+	public void readALineOfNineThreesAndGetOneCorrectionAtPositionFour()
+			throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("333393333"));
+	}
 }
