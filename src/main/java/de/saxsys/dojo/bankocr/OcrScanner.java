@@ -8,12 +8,12 @@ public class OcrScanner {
 
 	public List<String> read(File accountFile) {
 		List<String> accountNumberList = new ArrayList<String>();
-		List<String> digitsOfOneLine = null;
+		List<ScannedSign> signsOfOneLine = null;
 		AccountFileReader reader = new AccountFileReader(accountFile);
-		while (!(digitsOfOneLine = reader.getDigitsOfOneLine()).isEmpty()) {
+		while (!(signsOfOneLine = reader.getDigitsOfOneLine()).isEmpty()) {
 			StringBuilder sb = new StringBuilder();
-			for (String digit : digitsOfOneLine) {
-				sb.append(AccountDigit.value(digit).character());
+			for (ScannedSign sign : signsOfOneLine) {
+				sb.append(AccountDigit.value(sign).character());
 			}
 			accountNumberList.add( //
 					getEvaluatedAccountNumberResult( //

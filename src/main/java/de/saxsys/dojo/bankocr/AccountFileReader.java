@@ -25,7 +25,7 @@ public class AccountFileReader {
 		}
 	}
 
-	public List<String> getDigitsOfOneLine() {
+	public List<ScannedSign> getDigitsOfOneLine() {
 
 		String firstLine = getNextLine();
 		if (firstLine.isEmpty()) {
@@ -37,17 +37,17 @@ public class AccountFileReader {
 		List<String> threeCharactersPartsOfLineThree = getThreeCharacterParts(getNextLine());
 		getNextLine();
 
-		List<String> digitList = new ArrayList<String>();
+		List<ScannedSign> digitList = new ArrayList<ScannedSign>();
 		for (int i = 0; i < 9; i++) {
 			digitList.add(new ScannedSign( //
 					threeCharactersPartsOfLineOne.get(i), //
 					threeCharactersPartsOfLineTwo.get(i), //
-					threeCharactersPartsOfLineThree.get(i)).asString());
+					threeCharactersPartsOfLineThree.get(i)));
 		}
 		return digitList;
 	}
 
-	private List<String> cleanUpAndReturnEmptyList() {
+	private List<ScannedSign> cleanUpAndReturnEmptyList() {
 		if (null != bufferedReader)
 			try {
 				bufferedReader.close();

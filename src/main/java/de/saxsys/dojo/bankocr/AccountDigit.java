@@ -27,10 +27,11 @@ enum AccountDigit {
 		this.character = number;
 	}
 
-	public static AccountDigit value(String digit) {
+	public static AccountDigit value(ScannedSign sign) {
 
 		for (AccountDigit d : AccountDigit.values()) {
-			if ((d.firstLine + d.secondLine + d.thirdLine).equals(digit)) {
+			if ((d.firstLine + d.secondLine + d.thirdLine).equals( //
+					sign.asString())) {
 				return d;
 			}
 		}
