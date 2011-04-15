@@ -17,18 +17,30 @@ public class OcrScanner {
 			}
 			accountNumberList.add( //
 					getEvaluatedAccountNumberResult( //
-							sb, accountNumberList));
+							sb, signsOfOneLine));
 		}
 		return accountNumberList;
 	}
 
 	private String getEvaluatedAccountNumberResult(StringBuilder sb,
-			List<String> accountNumberList) {
+			List<ScannedSign> signsOfOneLine) {
 		if (sb.toString().contains("?")) {
 			sb.append(" ILL");
 		} else if (!AccountNumberValidator.isValid(sb.toString())) {
-			sb.append(" ERR");
+			if (!findAValidFirstNumber(signsOfOneLine, sb)) {
+				sb.append(" ERR");
+			}
 		}
 		return sb.toString();
+	}
+
+	private boolean findAValidFirstNumber(List<ScannedSign> signsOfOneLine,
+			StringBuilder sb) {
+		ScannedSign sign = signsOfOneLine.get(0);
+		if (AccountDigit.value(sign) == AccountDigit.ONE) {
+			sb.replace(0, 1, "7");
+			return true;
+		}
+		return false;
 	}
 }

@@ -57,9 +57,9 @@ public class StoryThreeTest {
 	@Test
 	public void ifInvalidNumbersFoundThenAppendERR() throws Exception {
 		String str = "" + //
-				"                           \n" + //
-				"  |  |  |  |  |  |  |  |  |\n" + //
-				"  |  |  |  |  |  |  |  |  |\n";
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains(endsWith(" ERR")));

@@ -4,7 +4,6 @@ import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -35,7 +34,6 @@ import org.junit.Test;
 public class StoryFourTest {
 
 	@Test
-	@Ignore("Some Refactoring before")
 	public void ifNumberIsInvalidButOnlyOneSignMissesToAValidNumberTakeTheValidOne()
 			throws Exception {
 		String str = "" + //
