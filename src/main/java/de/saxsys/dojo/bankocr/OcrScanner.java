@@ -36,35 +36,46 @@ public class OcrScanner {
 
 	private boolean findAValidFirstNumber(List<ScannedSign> signsOfOneLine,
 			StringBuilder sb, int index) {
-		ScannedSign sign = signsOfOneLine.get(0);
-		if (AccountDigit.value(sign) == AccountDigit.ONE) {
-			replace(sb, signsOfOneLine, 0);
-			return AccountNumberValidator.isValid(sb.toString());
-		}
-		sign = signsOfOneLine.get(6);
-		if (AccountDigit.value(sign) == AccountDigit.SEVEN) {
-			replace(sb, signsOfOneLine, 6);
-			return AccountNumberValidator.isValid(sb.toString());
-		}
-		sign = signsOfOneLine.get(3);
-		if (AccountDigit.value(sign) == AccountDigit.ZERO) {
-			replace(sb, signsOfOneLine, 3);
-			return AccountNumberValidator.isValid(sb.toString());
-		}
-		return AccountNumberValidator.isValid(sb.toString());
-	}
 
-	private void replace(StringBuilder sb, List<ScannedSign> scannedSigns,
-			int index) {
-		for (AccountDigit digit : AccountDigit.values()) {
-
-			if (onlyOneCharacterIsMissing(scannedSigns.get(index),
-					digit.asString()))
-				sb.replace(index, index + 1, digit.character());
-			if (AccountNumberValidator.isValid(sb.toString())) {
+		for (int i = 0; i < signsOfOneLine.size(); i++) {
+			if (existsAValidCharacter(sb, signsOfOneLine, i)) {
 				break;
 			}
 		}
+		// ScannedSign sign = signsOfOneLine.get(0);
+		// if (AccountDigit.value(sign) == AccountDigit.ONE) {
+		// existsAValidCharacter(sb, signsOfOneLine, 0);
+		// return AccountNumberValidator.isValid(sb.toString());
+		// }
+		// sign = signsOfOneLine.get(6);
+		// if (AccountDigit.value(sign) == AccountDigit.SEVEN) {
+		// existsAValidCharacter(sb, signsOfOneLine, 6);
+		// return AccountNumberValidator.isValid(sb.toString());
+		// }
+		// sign = signsOfOneLine.get(3);
+		// if (AccountDigit.value(sign) == AccountDigit.ZERO) {
+		// existsAValidCharacter(sb, signsOfOneLine, 3);
+		// return AccountNumberValidator.isValid(sb.toString());
+		// }
+		return AccountNumberValidator.isValid(sb.toString());
+	}
+
+	private boolean existsAValidCharacter(StringBuilder sb,
+			List<ScannedSign> scannedSigns, int index) {
+		for (AccountDigit digit : AccountDigit.values()) {
+
+			if (onlyOneCharacterIsMissing(scannedSigns.get(index),
+					digit.asString())) {
+
+				if (AccountNumberValidator.isValid(new StringBuffer(sb
+						.toString()).replace(index, index + 1,
+						digit.character()).toString())) {
+					sb.replace(index, index + 1, digit.character());
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private boolean onlyOneCharacterIsMissing(ScannedSign scannedSign,
