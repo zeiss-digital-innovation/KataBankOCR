@@ -30,8 +30,7 @@ enum AccountDigit {
 	public static AccountDigit value(ScannedSign sign) {
 
 		for (AccountDigit d : AccountDigit.values()) {
-			if ((d.firstLine + d.secondLine + d.thirdLine).equals( //
-					sign.asString())) {
+			if (d.asString().equals(sign.asString())) {
 				return d;
 			}
 		}
@@ -40,6 +39,10 @@ enum AccountDigit {
 
 	public String character() {
 		return character;
+	}
+
+	public String asString() {
+		return firstLine + secondLine + thirdLine;
 	}
 
 }
