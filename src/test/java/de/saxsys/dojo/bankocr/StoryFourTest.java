@@ -34,7 +34,7 @@ import org.junit.Test;
 public class StoryFourTest {
 
 	@Test
-	public void ifNumberIsInvalidButOnlyOneSignMissesToAValidNumberTakeTheValidOne()
+	public void ifNumberIsInvalidButOnlyTheFirstSignMissesACharacterToAValidNumberTakeTheValidOne()
 			throws Exception {
 		String str = "" + //
 				"                           \n" + //
@@ -43,5 +43,17 @@ public class StoryFourTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("711111111"));
+	}
+
+	@Test
+	public void ifNumberIsInvalidButOnlyTheSeventhSignMissesACharacterToAValidNumberTakeTheValidOne()
+			throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"  |  |  |  |  |  |  |  |  |\n" + //
+				"  |  |  |  |  |  |  |  |  |\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("777777177"));
 	}
 }
