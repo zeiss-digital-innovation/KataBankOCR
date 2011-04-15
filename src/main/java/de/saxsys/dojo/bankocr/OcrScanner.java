@@ -2,6 +2,7 @@ package de.saxsys.dojo.bankocr;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OcrScanner {
@@ -31,8 +32,12 @@ public class OcrScanner {
 					sb.toString());
 			if (validNumbers.isEmpty()) {
 				sb.append(" ERR");
+			} else if (1 == validNumbers.size()) {
+				sb.delete(0, sb.length()).append(validNumbers.get(0));
 			} else {
-				return validNumbers.get(0);
+				sb.append(" AMB ");
+				Collections.sort(validNumbers);
+				sb.append(validNumbers);
 			}
 		}
 		return sb.toString();
@@ -47,7 +52,6 @@ public class OcrScanner {
 					invalidAccountNumber.toString(), signsOfOneLine.get(i), i);
 			if (!validAccountNumber.isEmpty()) {
 				validNumbers.add(validAccountNumber);
-				break;
 			}
 		}
 		return validNumbers;
