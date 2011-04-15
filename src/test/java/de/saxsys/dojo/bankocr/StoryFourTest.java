@@ -4,6 +4,7 @@ import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
+import org.junit.After;
 import org.junit.Test;
 
 /**
@@ -33,8 +34,13 @@ import org.junit.Test;
  */
 public class StoryFourTest {
 
+	@After
+	public void removeDummyFile() {
+		TestUtils.removeDummyFile();
+	}
+
 	@Test
-	public void ifNumberIsInvalidButOnlyTheFirstSignMissesACharacterToAValidNumberTakeTheValidOne()
+	public void readALineOfNineOnesAndGetOneCorrectionAtPositionOne()
 			throws Exception {
 		String str = "" + //
 				"                           \n" + //
@@ -46,7 +52,19 @@ public class StoryFourTest {
 	}
 
 	@Test
-	public void ifNumberIsInvalidButOnlyTheSeventhSignMissesACharacterToAValidNumberTakeTheValidOne()
+	public void readALineOfNineThreesAndGetOneCorrectionAtPositionFour()
+			throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("333393333"));
+	}
+
+	@Test
+	public void readALineOfNineSevensAndGetOneCorrectionAtPositionSeven()
 			throws Exception {
 		String str = "" + //
 				" _  _  _  _  _  _  _  _  _ \n" + //
@@ -67,17 +85,5 @@ public class StoryFourTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("200800000"));
-	}
-
-	@Test
-	public void readALineOfNineThreesAndGetOneCorrectionAtPositionFour()
-			throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				" _| _| _| _| _| _| _| _| _|\n" + //
-				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
-				contains("333393333"));
 	}
 }
