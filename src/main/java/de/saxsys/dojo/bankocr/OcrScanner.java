@@ -18,38 +18,42 @@ public class OcrScanner {
 			}
 			accountNumberList.add( //
 					getEvaluatedAccountNumberResult( //
-							signsOfOneLine, sb));
+							signsOfOneLine, sb.toString()));
 		}
 		return accountNumberList;
 	}
 
 	private String getEvaluatedAccountNumberResult(
-			List<ScannedSign> signsOfOneLine, StringBuilder sb) {
-		if (sb.toString().contains("?")) {
-			sb.append(" ILL");
-		} else if (!AccountNumberValidator.isValid(sb.toString())) {
-			List<String> validNumbers = findValidAccountNumber(signsOfOneLine,
-					sb.toString());
+			List<ScannedSign> signsOfOneLine, String accountNumber) {
+
+		if (accountNumber.contains("?")) {
+			accountNumber += (" ILL");
+		} else if (!AccountNumberValidator.isValid(accountNumber.toString())) {
+			List<String> validNumbers = findValidAccountNumbers( //
+					signsOfOneLine, accountNumber);
 			if (validNumbers.isEmpty()) {
-				sb.append(" ERR");
+				accountNumber += (" ERR");
 			} else if (1 == validNumbers.size()) {
-				sb.delete(0, sb.length()).append(validNumbers.get(0));
+				accountNumber = validNumbers.get(0);
 			} else {
-				sb.append(" AMB ");
+				accountNumber += (" AMB ");
 				Collections.sort(validNumbers);
-				sb.append(validNumbers);
+				accountNumber += (validNumbers.toString());
 			}
 		}
-		return sb.toString();
+
+		return accountNumber;
 	}
 
-	private List<String> findValidAccountNumber(
-			List<ScannedSign> signsOfOneLine, String invalidAccountNumber) {
+	private List<String> findValidAccountNumbers(
+			List<ScannedSign> signsOfTheLine, String invalidAccountNumber) {
 
 		List<String> validNumbers = new ArrayList<String>();
-		for (int i = 0; i < signsOfOneLine.size(); i++) {
+		for (int i = 0; i < signsOfTheLine.size(); i++) {
+
 			String validAccountNumber = getValidNumberIfExists(
-					invalidAccountNumber.toString(), signsOfOneLine.get(i), i);
+					invalidAccountNumber.toString(), signsOfTheLine.get(i), i);
+
 			if (!validAccountNumber.isEmpty()) {
 				validNumbers.add(validAccountNumber);
 			}
