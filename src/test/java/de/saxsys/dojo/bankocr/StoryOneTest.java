@@ -53,18 +53,6 @@ public class StoryOneTest {
 	}
 
 	@Test
-	@Ignore("wrong with story four")
-	public void readALineOfNineOnes() throws Exception {
-		String str = "" + //
-				"                           \n" + //
-				"  |  |  |  |  |  |  |  |  |\n" + //
-				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("111111111")));
-	}
-
-	@Test
 	public void readALineOfNineTwos() throws Exception {
 		String str = "" + //
 				" _  _  _  _  _  _  _  _  _ \n" + //
@@ -85,54 +73,6 @@ public class StoryOneTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)),
 				hasItem(startsWith("444444444")));
-	}
-
-	@Test
-	@Ignore("wrong with story four")
-	public void readALineOfNineFives() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
-				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("555555555")));
-	}
-
-	@Test
-	@Ignore("wrong with story four")
-	public void readALineOfNineSix() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
-				"|_||_||_||_||_||_||_||_||_|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("666666666")));
-	}
-
-	@Test
-	@Ignore("wrong with story four")
-	public void readALineOfNineSevens() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				"  |  |  |  |  |  |  |  |  |\n" + //
-				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("777777777")));
-	}
-
-	@Test
-	@Ignore("wrong with story four")
-	public void readALineOfNineNines() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				"|_||_||_||_||_||_||_||_||_|\n" + //
-				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("999999999")));
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package de.saxsys.dojo.bankocr;
 import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import org.junit.After;
 import org.junit.Test;
@@ -96,5 +97,50 @@ public class StoryFourTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("888888888 AMB [888886888, 888888880, 888888988]"));
+	}
+
+	@Test
+	public void readALineOfNineFivesResultsInTwoProposals() throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				hasItem("555555555 AMB [555655555, 559555555]"));
+	}
+
+	@Test
+	public void readALineOfNineSixesResultsInTwoProposals() throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("666666666 AMB [666566666, 686666666]"));
+	}
+
+	@Test
+	public void readALineOfNineNinesResultsInThreeProposals() throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n" + //
+				" _| _| _| _| _| _| _| _| _|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("999999999 AMB [899999999, 993999999, 999959999]"));
+	}
+
+	@Test
+	public void readALineOfDifferentSignsResultsInThreeProposals()
+			throws Exception {
+		String str = "" + //
+				"    _  _  _  _  _  _     _ \n" + //
+				"|_||_|| || ||_   |  |  ||_ \n" + //
+				"  | _||_||_||_|  |  |  | _|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("490067715 AMB [490067115, 490067719, 490867715]"));
 	}
 }
