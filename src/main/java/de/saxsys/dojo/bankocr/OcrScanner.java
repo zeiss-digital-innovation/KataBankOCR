@@ -27,22 +27,31 @@ public class OcrScanner {
 		if (sb.toString().contains("?")) {
 			sb.append(" ILL");
 		} else if (!AccountNumberValidator.isValid(sb.toString())) {
-			if (!findValidAccountNumber(signsOfOneLine, sb)) {
+			List<String> validNumbers = findValidAccountNumber(signsOfOneLine,
+					sb);
+			if (validNumbers.isEmpty()) {
 				sb.append(" ERR");
+			} else {
+				return validNumbers.get(0);
 			}
 		}
 		return sb.toString();
 	}
 
-	private boolean findValidAccountNumber(List<ScannedSign> signsOfOneLine,
-			StringBuilder sb) {
+	private List<String> findValidAccountNumber(
+			List<ScannedSign> signsOfOneLine, StringBuilder sb) {
 
+		List<String> validNumbers = new ArrayList<String>();
 		for (int i = 0; i < signsOfOneLine.size(); i++) {
-			if (!getValidNumberIfExists(sb, signsOfOneLine.get(i), i).isEmpty()) {
+			String validAccountNumber = getValidNumberIfExists(sb,
+					signsOfOneLine.get(i), i);
+			if (!validAccountNumber.isEmpty()) {
+				validNumbers.add(validAccountNumber);
 				break;
 			}
 		}
-		return AccountNumberValidator.isValid(sb.toString());
+		// return AccountNumberValidator.isValid(sb.toString());
+		return validNumbers;
 	}
 
 	private String getValidNumberIfExists(StringBuilder sb, ScannedSign sign,
