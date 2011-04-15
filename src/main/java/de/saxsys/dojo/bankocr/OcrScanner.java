@@ -13,7 +13,7 @@ public class OcrScanner {
 		while (!(digitsOfOneLine = reader.getDigitsOfOneLine()).isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			for (String digit : digitsOfOneLine) {
-				sb.append(Digit.value(digit).character());
+				sb.append(AccountDigit.value(digit).character());
 			}
 			accountNumberList.add( //
 					getEvaluatedAccountNumberResult( //

@@ -39,9 +39,10 @@ public class AccountFileReader {
 
 		List<String> digitList = new ArrayList<String>();
 		for (int i = 0; i < 9; i++) {
-			digitList.add(threeCharactersPartsOfLineOne.get(i)
-					+ threeCharactersPartsOfLineTwo.get(i)
-					+ threeCharactersPartsOfLineThree.get(i));
+			digitList.add(new ScannedSign( //
+					threeCharactersPartsOfLineOne.get(i), //
+					threeCharactersPartsOfLineTwo.get(i), //
+					threeCharactersPartsOfLineThree.get(i)).asString());
 		}
 		return digitList;
 	}
