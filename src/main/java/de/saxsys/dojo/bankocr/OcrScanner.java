@@ -43,7 +43,7 @@ public class OcrScanner {
 		}
 		sign = signsOfOneLine.get(6);
 		if (AccountDigit.value(sign) == AccountDigit.SEVEN) {
-			sb.replace(6, 7, "1");
+			replace(sb, signsOfOneLine, 6);
 			return AccountNumberValidator.isValid(sb.toString());
 		}
 		sign = signsOfOneLine.get(3);
@@ -59,7 +59,7 @@ public class OcrScanner {
 		for (AccountDigit digit : AccountDigit.values()) {
 
 			if (onlyOneCharacterIsMissing(scannedSigns.get(0), digit.asString()))
-				sb.replace(0, 1, digit.character());
+				sb.replace(index, index + 1, digit.character());
 			if (AccountNumberValidator.isValid(sb.toString())) {
 				break;
 			}
@@ -68,6 +68,12 @@ public class OcrScanner {
 
 	private boolean onlyOneCharacterIsMissing(ScannedSign scannedSign,
 			String asString) {
-		return true;
+		int errors = 0;
+		for (int i = 0; i < scannedSign.asString().length(); i++) {
+			char charAt = asString.charAt(i);
+			errors += (scannedSign.asString().charAt(i) != charAt) ? 1 : 0;
+		}
+
+		return 1 == errors;
 	}
 }

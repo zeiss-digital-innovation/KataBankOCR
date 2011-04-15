@@ -12,7 +12,7 @@ enum AccountDigit {
 	SEVEN("7", " _ ", "  |", "  |"), //
 	EIGHT("8", " _ ", "|_|", "|_|"), //
 	NINE("9", " _ ", "|_|", " _|"), //
-	UNKNOWN("?", "", "", "");
+	UNKNOWN("?", "   ", "   ", "   ");
 
 	final String firstLine;
 	final String secondLine;
