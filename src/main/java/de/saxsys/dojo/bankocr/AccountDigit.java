@@ -1,5 +1,8 @@
 package de.saxsys.dojo.bankocr;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 enum AccountDigit {
 
 	ZERO("0", " _ ", "| |", "|_|"), //
@@ -27,6 +30,14 @@ enum AccountDigit {
 		this.character = number;
 	}
 
+	public String character() {
+		return character;
+	}
+
+	public String asString() {
+		return firstLine + secondLine + thirdLine;
+	}
+
 	public static AccountDigit value(ScannedSign sign) {
 
 		for (AccountDigit d : AccountDigit.values()) {
@@ -37,12 +48,26 @@ enum AccountDigit {
 		return UNKNOWN;
 	}
 
-	public String character() {
-		return character;
+	public static Collection<AccountDigit> valuesWithOneCharacterDifference(
+			ScannedSign sign) {
+
+		final Collection<AccountDigit> matchingDigits = new ArrayList<AccountDigit>();
+		for (AccountDigit digit : AccountDigit.values()) {
+			if (onlyOneCharacterIsWrong(sign, digit)) {
+				matchingDigits.add(digit);
+			}
+		}
+		return matchingDigits;
 	}
 
-	public String asString() {
-		return firstLine + secondLine + thirdLine;
+	private static boolean onlyOneCharacterIsWrong(ScannedSign sign,
+			AccountDigit digit) {
+		final String signString = sign.asString();
+		final String digitString = digit.asString();
+		int errors = 0;
+		for (int i = 0; i < signString.length(); i++) {
+			errors += (signString.charAt(i) != digitString.charAt(i)) ? 1 : 0;
+		}
+		return 1 == errors;
 	}
-
 }

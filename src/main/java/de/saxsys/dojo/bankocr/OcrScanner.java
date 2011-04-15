@@ -17,13 +17,13 @@ public class OcrScanner {
 			}
 			accountNumberList.add( //
 					getEvaluatedAccountNumberResult( //
-							sb, signsOfOneLine));
+							signsOfOneLine, sb));
 		}
 		return accountNumberList;
 	}
 
-	private String getEvaluatedAccountNumberResult(StringBuilder sb,
-			List<ScannedSign> signsOfOneLine) {
+	private String getEvaluatedAccountNumberResult(List<ScannedSign> signsOfOneLine,
+			StringBuilder sb) {
 		if (sb.toString().contains("?")) {
 			sb.append(" ILL");
 		} else if (!AccountNumberValidator.isValid(sb.toString())) {
@@ -47,29 +47,16 @@ public class OcrScanner {
 
 	private boolean existsAValidCharacter(StringBuilder sb,
 			List<ScannedSign> scannedSigns, int index) {
-		for (AccountDigit digit : AccountDigit.values()) {
+		for (AccountDigit digit : AccountDigit
+				.valuesWithOneCharacterDifference(scannedSigns.get(index))) {
 
-			if (onlyOneCharacterIsWrong(scannedSigns.get(index), digit)) {
-				String possibleAccountNumber = new StringBuffer(sb.toString())
-						.replace(index, index + 1, digit.character())
-						.toString();
-				if (AccountNumberValidator.isValid(possibleAccountNumber)) {
-					sb.replace(index, index + 1, digit.character());
-					return true;
-				}
+			String possibleAccountNumber = new StringBuffer(sb.toString())
+					.replace(index, index + 1, digit.character()).toString();
+			if (AccountNumberValidator.isValid(possibleAccountNumber)) {
+				sb.replace(index, index + 1, digit.character());
+				return true;
 			}
 		}
 		return false;
-	}
-
-	private boolean onlyOneCharacterIsWrong(ScannedSign scannedSign,
-			AccountDigit accountDigit) {
-		String sign = scannedSign.asString();
-		String digit = accountDigit.asString();
-		int errors = 0;
-		for (int i = 0; i < sign.length(); i++) {
-			errors += (sign.charAt(i) != digit.charAt(i)) ? 1 : 0;
-		}
-		return 1 == errors;
 	}
 }
