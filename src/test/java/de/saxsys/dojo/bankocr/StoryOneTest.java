@@ -125,18 +125,6 @@ public class StoryOneTest {
 
 	@Test
 	@Ignore("wrong with story four")
-	public void readALineOfNineEights() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				"|_||_||_||_||_||_||_||_||_|\n" + //
-				"|_||_||_||_||_||_||_||_||_|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("888888888")));
-	}
-
-	@Test
-	@Ignore("wrong with story four")
 	public void readALineOfNineNines() throws Exception {
 		String str = "" + //
 				" _  _  _  _  _  _  _  _  _ \n" + //

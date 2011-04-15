@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -85,5 +86,18 @@ public class StoryFourTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("200800000"));
+	}
+
+	@Test
+	@Ignore
+	public void readALineOfNineEightsResultsInThreeProposals() throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				"|_||_||_||_||_||_||_||_||_|\n" + //
+				"|_||_||_||_||_||_||_||_||_|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(
+				scanner.read(createDummyFileFor(str)), //
+				contains("888888888 AMB ['888886888', '888888880', '888888988']"));
 	}
 }
