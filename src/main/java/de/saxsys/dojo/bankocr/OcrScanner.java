@@ -28,7 +28,7 @@ public class OcrScanner {
 			sb.append(" ILL");
 		} else if (!AccountNumberValidator.isValid(sb.toString())) {
 			List<String> validNumbers = findValidAccountNumber(signsOfOneLine,
-					sb);
+					sb.toString());
 			if (validNumbers.isEmpty()) {
 				sb.append(" ERR");
 			} else {
@@ -39,33 +39,35 @@ public class OcrScanner {
 	}
 
 	private List<String> findValidAccountNumber(
-			List<ScannedSign> signsOfOneLine, StringBuilder sb) {
+			List<ScannedSign> signsOfOneLine, String invalidAccountNumber) {
 
 		List<String> validNumbers = new ArrayList<String>();
 		for (int i = 0; i < signsOfOneLine.size(); i++) {
-			String validAccountNumber = getValidNumberIfExists(sb,
-					signsOfOneLine.get(i), i);
+			String validAccountNumber = getValidNumberIfExists(
+					invalidAccountNumber.toString(), signsOfOneLine.get(i), i);
 			if (!validAccountNumber.isEmpty()) {
 				validNumbers.add(validAccountNumber);
 				break;
 			}
 		}
-		// return AccountNumberValidator.isValid(sb.toString());
 		return validNumbers;
 	}
 
-	private String getValidNumberIfExists(StringBuilder sb, ScannedSign sign,
-			int index) {
+	private String getValidNumberIfExists(String invalidAccountNumber,
+			ScannedSign sign, int signIndex) {
+
 		for (AccountDigit digit : AccountDigit
 				.valuesWithOneCharacterDifference(sign)) {
 
-			String possibleAccountNumber = new StringBuffer(sb.toString())
-					.replace(index, index + 1, digit.character()).toString();
+			String possibleAccountNumber = new StringBuilder(
+					invalidAccountNumber).replace(signIndex, signIndex + 1,
+					digit.character()).toString();
+
 			if (AccountNumberValidator.isValid(possibleAccountNumber)) {
-				sb.replace(index, index + 1, digit.character());
-				return sb.toString();
+				return possibleAccountNumber;
 			}
 		}
+
 		return "";
 	}
 }
