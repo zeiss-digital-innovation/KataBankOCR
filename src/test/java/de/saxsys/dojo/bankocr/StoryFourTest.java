@@ -2,7 +2,9 @@ package de.saxsys.dojo.bankocr;
 
 import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import org.junit.Test;
 
@@ -56,4 +58,17 @@ public class StoryFourTest {
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("777777177"));
 	}
+
+	@Test
+	public void ifNumberIsInvalidButOnlyTheFourthSignMissesACharacterToAValidNumberTakeTheValidOne()
+			throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _|| || || || || || || || |\n" + //
+				"|_ |_||_||_||_||_||_||_||_|\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)),
+				hasItem(startsWith("200800000")));
+	}
+
 }

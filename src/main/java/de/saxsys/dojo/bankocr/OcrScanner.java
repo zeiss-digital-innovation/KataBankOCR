@@ -46,6 +46,11 @@ public class OcrScanner {
 			sb.replace(6, 7, "1");
 			return true;
 		}
+		sign = signsOfOneLine.get(3);
+		if (AccountDigit.value(sign) == AccountDigit.ZERO) {
+			sb.replace(3, 4, "8");
+			return true;
+		}
 		return false;
 	}
 }
