@@ -3,6 +3,9 @@ package de.saxsys.dojo.bankocr;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * @author Sebastian Schmeck
+ */
 enum AccountDigit {
 
 	ZERO("0", " _ ", "| |", "|_|"), //
