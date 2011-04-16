@@ -1,5 +1,8 @@
 package de.saxsys.dojo.bankocr;
 
+/**
+ * @author Sebastian Schmeck
+ */
 public class AccountNumberValidator {
 
 	private static final int MAGIC_VALIDATION_NUMBER = 11;
