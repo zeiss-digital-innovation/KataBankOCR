@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Sebastian Schmeck
+ */
 public class AccountFileReader {
 
 	private final static Pattern THREE_CHARS = Pattern.compile("[ |_]{3}");;
