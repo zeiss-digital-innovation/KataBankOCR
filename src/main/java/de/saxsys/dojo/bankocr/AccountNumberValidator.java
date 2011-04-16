@@ -6,6 +6,10 @@ public class AccountNumberValidator {
 
 	public static boolean isValid(String accountNo) {
 
+		if (accountNo.contains("?")) {
+			return false;
+		}
+
 		int checksum = 0;
 		char[] digits = accountNo.toCharArray();
 		for (int i = 0; i < digits.length; i++) {

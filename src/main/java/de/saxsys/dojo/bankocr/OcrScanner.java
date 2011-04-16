@@ -26,9 +26,7 @@ public class OcrScanner {
 	private String getEvaluatedAccountNumberResult(
 			List<ScannedSign> signsOfOneLine, String accountNumber) {
 
-		if (accountNumber.contains("?")) {
-			accountNumber += (" ILL");
-		} else if (!AccountNumberValidator.isValid(accountNumber.toString())) {
+		if (!AccountNumberValidator.isValid(accountNumber.toString())) {
 			List<String> validNumbers = findValidAccountNumbers( //
 					signsOfOneLine, accountNumber);
 			if (validNumbers.isEmpty()) {
