@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Sebastian Schmeck
+ */
 public class OcrScanner {
 
 	public List<String> read(File accountFile) {
@@ -32,7 +35,7 @@ public class OcrScanner {
 
 			List<String> validNumbers = findValidAccountNumbers(signs, number);
 			if (validNumbers.isEmpty()) {
-				number += (" ILL");
+				number += " ILL";
 			} else if (1 == validNumbers.size()) {
 				number = validNumbers.get(0);
 			} else {
@@ -50,8 +53,8 @@ public class OcrScanner {
 		List<String> validNumbers = new ArrayList<String>();
 		for (int i = 0; i < signs.size(); i++) {
 
-			String validAccountNumber = getValidNumberIfExists(
-					invalidNumber, signs.get(i), i);
+			String validAccountNumber = getValidNumberIfExists(invalidNumber,
+					signs.get(i), i);
 
 			if (!validAccountNumber.isEmpty()) {
 				validNumbers.add(validAccountNumber);
