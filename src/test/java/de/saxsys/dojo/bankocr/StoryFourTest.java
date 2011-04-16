@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -158,7 +157,6 @@ public class StoryFourTest {
 	}
 
 	@Test
-	@Ignore
 	public void readLineWithUnknownSignAtPositionOneAndFindAValidAccountNumber()
 			throws Exception {
 		String str = ""//
