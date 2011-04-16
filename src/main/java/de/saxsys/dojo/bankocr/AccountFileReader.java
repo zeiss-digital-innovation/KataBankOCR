@@ -44,6 +44,7 @@ public class AccountFileReader {
 					threeCharactersPartsOfLineTwo.get(i), //
 					threeCharactersPartsOfLineThree.get(i)));
 		}
+
 		return digitList;
 	}
 
@@ -58,11 +59,13 @@ public class AccountFileReader {
 	}
 
 	private List<String> getThreeCharacterParts(String nextLine) {
+
 		final List<String> threeCharParts = new ArrayList<String>();
 		final Matcher m = THREE_CHARS.matcher(nextLine);
 		while (m.find()) {
 			threeCharParts.add(m.group());
 		}
+
 		return threeCharParts;
 	}
 
@@ -76,6 +79,7 @@ public class AccountFileReader {
 		} catch (IOException e) {
 			throw new RuntimeException("some trouble", e);
 		}
+
 		return "";
 	}
 }

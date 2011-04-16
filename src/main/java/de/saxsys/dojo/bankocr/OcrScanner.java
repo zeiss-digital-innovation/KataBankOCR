@@ -8,48 +8,50 @@ import java.util.List;
 public class OcrScanner {
 
 	public List<String> read(File accountFile) {
-		List<String> accountNumberList = new ArrayList<String>();
-		List<ScannedSign> signsOfOneLine = null;
-		AccountFileReader reader = new AccountFileReader(accountFile);
-		while (!(signsOfOneLine = reader.getDigitsOfOneLine()).isEmpty()) {
+
+		final List<String> accountNumberResults = new ArrayList<String>();
+		final AccountFileReader reader = new AccountFileReader(accountFile);
+
+		List<ScannedSign> signsOfALine = null;
+		while (!(signsOfALine = reader.getDigitsOfOneLine()).isEmpty()) {
+
 			StringBuilder sb = new StringBuilder();
-			for (ScannedSign sign : signsOfOneLine) {
+			for (ScannedSign sign : signsOfALine) {
 				sb.append(AccountDigit.value(sign).character());
 			}
-			accountNumberList.add( //
-					getEvaluatedAccountNumberResult( //
-							signsOfOneLine, sb.toString()));
+			accountNumberResults.add( //
+					getEvaluatedNumber(signsOfALine, sb.toString()));
 		}
-		return accountNumberList;
+
+		return accountNumberResults;
 	}
 
-	private String getEvaluatedAccountNumberResult(List<ScannedSign> signs,
-			String number) {
+	private String getEvaluatedNumber(List<ScannedSign> signs, String number) {
 
 		if (!AccountNumberValidator.isValid(number.toString())) {
+
 			List<String> validNumbers = findValidAccountNumbers(signs, number);
 			if (validNumbers.isEmpty()) {
 				number += (" ILL");
 			} else if (1 == validNumbers.size()) {
 				number = validNumbers.get(0);
 			} else {
-				number += (" AMB ");
 				Collections.sort(validNumbers);
-				number += (validNumbers.toString());
+				number += " AMB " + validNumbers;
 			}
 		}
 
 		return number;
 	}
 
-	private List<String> findValidAccountNumbers(
-			List<ScannedSign> signsOfTheLine, String invalidAccountNumber) {
+	private List<String> findValidAccountNumbers(List<ScannedSign> signs,
+			String invalidNumber) {
 
 		List<String> validNumbers = new ArrayList<String>();
-		for (int i = 0; i < signsOfTheLine.size(); i++) {
+		for (int i = 0; i < signs.size(); i++) {
 
 			String validAccountNumber = getValidNumberIfExists(
-					invalidAccountNumber.toString(), signsOfTheLine.get(i), i);
+					invalidNumber, signs.get(i), i);
 
 			if (!validAccountNumber.isEmpty()) {
 				validNumbers.add(validAccountNumber);

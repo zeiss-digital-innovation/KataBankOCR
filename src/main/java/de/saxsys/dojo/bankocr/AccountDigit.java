@@ -45,6 +45,7 @@ enum AccountDigit {
 				return d;
 			}
 		}
+
 		return UNKNOWN;
 	}
 
@@ -57,17 +58,20 @@ enum AccountDigit {
 				matchingDigits.add(digit);
 			}
 		}
+
 		return matchingDigits;
 	}
 
 	private static boolean onlyOneCharacterIsWrong(ScannedSign sign,
 			AccountDigit digit) {
+
 		final String signString = sign.asString();
 		final String digitString = digit.asString();
 		int errors = 0;
 		for (int i = 0; i < signString.length(); i++) {
 			errors += (signString.charAt(i) != digitString.charAt(i)) ? 1 : 0;
 		}
+
 		return 1 == errors;
 	}
 }
