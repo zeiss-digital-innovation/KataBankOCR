@@ -53,15 +53,4 @@ public class StoryThreeTest {
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains(endsWith(" ILL")));
 	}
-
-	@Test
-	public void ifInvalidNumbersFoundThenAppendERR() throws Exception {
-		String str = "" + //
-				" _  _  _  _  _  _  _  _  _ \n" + //
-				" _| _| _| _| _| _| _| _| _|\n" + //
-				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
-				contains(endsWith(" ERR")));
-	}
 }

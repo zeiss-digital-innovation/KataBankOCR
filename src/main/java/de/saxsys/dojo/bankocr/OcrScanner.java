@@ -32,7 +32,7 @@ public class OcrScanner {
 			List<String> validNumbers = findValidAccountNumbers( //
 					signsOfOneLine, accountNumber);
 			if (validNumbers.isEmpty()) {
-				accountNumber += (" ERR");
+				accountNumber += (" ILL");
 			} else if (1 == validNumbers.size()) {
 				accountNumber = validNumbers.get(0);
 			} else {

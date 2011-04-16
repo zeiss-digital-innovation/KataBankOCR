@@ -2,10 +2,12 @@ package de.saxsys.dojo.bankocr;
 
 import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.endsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -142,5 +144,29 @@ public class StoryFourTest {
 		OcrScanner scanner = new OcrScanner();
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("490067715 AMB [490067115, 490067719, 490867715]"));
+	}
+
+	@Test
+	public void ifInvalidNumbersFoundThenAppendERR() throws Exception {
+		String str = "" + //
+				" _  _  _  _  _  _  _  _  _ \n" + //
+				" _| _| _| _| _| _| _| _| _|\n" + //
+				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains(endsWith(" ILL")));
+	}
+
+	@Test
+	@Ignore
+	public void readLineWithUnknownSignAtPositionOneAndFindAValidAccountNumber()
+			throws Exception {
+		String str = ""//
+				+ "    _  _     _  _  _  _  _ \n" //
+				+ " _| _| _||_||_ |_   ||_||_|\n" //
+				+ "  ||_  _|  | _||_|  ||_| _|\n\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("123456789"));
 	}
 }
