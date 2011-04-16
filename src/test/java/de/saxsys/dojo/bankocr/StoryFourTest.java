@@ -167,4 +167,28 @@ public class StoryFourTest {
 		assertThat(scanner.read(createDummyFileFor(str)), //
 				contains("123456789"));
 	}
+
+	@Test
+	public void readLineWithUnknownSignAtPositionTwoAndFindAValidAccountNumber()
+			throws Exception {
+		String str = ""//
+				+ " _     _  _  _  _  _  _    \n" //
+				+ "| || || || || || || ||_   |\n" //
+				+ "|_||_||_||_||_||_||_| _|  |\n\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("000000051"));
+	}
+
+	@Test
+	public void readLineWithUnknownSignAtPositionNineAndFindAValidAccountNumber()
+			throws Exception {
+		String str = ""//
+				+ "    _  _  _  _  _  _     _ \n" //
+				+ "|_||_|| ||_||_   |  |  | _ \n" //
+				+ "  | _||_||_||_|  |  |  | _|\n\n";
+		OcrScanner scanner = new OcrScanner();
+		assertThat(scanner.read(createDummyFileFor(str)), //
+				contains("490867715"));
+	}
 }

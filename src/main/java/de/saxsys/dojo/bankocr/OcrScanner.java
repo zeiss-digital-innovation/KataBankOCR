@@ -23,24 +23,23 @@ public class OcrScanner {
 		return accountNumberList;
 	}
 
-	private String getEvaluatedAccountNumberResult(
-			List<ScannedSign> signsOfOneLine, String accountNumber) {
+	private String getEvaluatedAccountNumberResult(List<ScannedSign> signs,
+			String number) {
 
-		if (!AccountNumberValidator.isValid(accountNumber.toString())) {
-			List<String> validNumbers = findValidAccountNumbers( //
-					signsOfOneLine, accountNumber);
+		if (!AccountNumberValidator.isValid(number.toString())) {
+			List<String> validNumbers = findValidAccountNumbers(signs, number);
 			if (validNumbers.isEmpty()) {
-				accountNumber += (" ILL");
+				number += (" ILL");
 			} else if (1 == validNumbers.size()) {
-				accountNumber = validNumbers.get(0);
+				number = validNumbers.get(0);
 			} else {
-				accountNumber += (" AMB ");
+				number += (" AMB ");
 				Collections.sort(validNumbers);
-				accountNumber += (validNumbers.toString());
+				number += (validNumbers.toString());
 			}
 		}
 
-		return accountNumber;
+		return number;
 	}
 
 	private List<String> findValidAccountNumbers(

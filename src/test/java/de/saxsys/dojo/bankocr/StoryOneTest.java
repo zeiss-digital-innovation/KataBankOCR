@@ -7,7 +7,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -64,7 +63,6 @@ public class StoryOneTest {
 	}
 
 	@Test
-	@Ignore("wrong with story four")
 	public void readALineOfNineFours() throws Exception {
 		String str = "" + //
 				"                           \n" + //
