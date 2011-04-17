@@ -101,7 +101,7 @@ public class OcrScanner {
 				try {
 					fw.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					throw new RuntimeException("some trouble", e);
 				}
 		}
 

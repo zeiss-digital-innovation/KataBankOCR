@@ -1,6 +1,7 @@
 package de.saxsys.dojo.bankocr;
 
-import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
+import static de.saxsys.dojo.bankocr.TestUtils.executeScannerFor;
+import static de.saxsys.dojo.bankocr.TestUtils.getResultsFromFile;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.endsWith;
 import static org.junit.Assert.assertThat;
@@ -37,7 +38,7 @@ import org.junit.Test;
 public class StoryFourTest {
 
 	@After
-	public void removeDummyFile() {
+	public void removeDummyFiles() {
 		TestUtils.removeDummyFiles();
 	}
 
@@ -48,8 +49,8 @@ public class StoryFourTest {
 				"                           \n" + //
 				"  |  |  |  |  |  |  |  |  |\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("711111111"));
 	}
 
@@ -60,8 +61,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				" _| _| _| _| _| _| _| _| _|\n" + //
 				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("333393333"));
 	}
 
@@ -72,8 +73,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				"  |  |  |  |  |  |  |  |  |\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("777777177"));
 	}
 
@@ -84,8 +85,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				" _|| || || || || || || || |\n" + //
 				"|_ |_||_||_||_||_||_||_||_|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("200800000"));
 	}
 
@@ -95,8 +96,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				"|_||_||_||_||_||_||_||_||_|\n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("888888888 AMB [888886888, 888888880, 888888988]"));
 	}
 
@@ -106,8 +107,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
 				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				hasItem("555555555 AMB [555655555, 559555555]"));
 	}
 
@@ -117,8 +118,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("666666666 AMB [666566666, 686666666]"));
 	}
 
@@ -128,8 +129,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				"|_||_||_||_||_||_||_||_||_|\n" + //
 				" _| _| _| _| _| _| _| _| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("999999999 AMB [899999999, 993999999, 999959999]"));
 	}
 
@@ -140,8 +141,8 @@ public class StoryFourTest {
 				"    _  _  _  _  _  _     _ \n" + //
 				"|_||_|| || ||_   |  |  ||_ \n" + //
 				"  | _||_||_||_|  |  |  | _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("490067715 AMB [490067115, 490067719, 490867715]"));
 	}
 
@@ -151,8 +152,8 @@ public class StoryFourTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				" _| _| _| _| _| _| _| _| _|\n" + //
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains(endsWith(" ILL")));
 	}
 
@@ -163,8 +164,8 @@ public class StoryFourTest {
 				+ "    _  _     _  _  _  _  _ \n" //
 				+ " _| _| _||_||_ |_   ||_||_|\n" //
 				+ "  ||_  _|  | _||_|  ||_| _|\n\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("123456789"));
 	}
 
@@ -175,8 +176,8 @@ public class StoryFourTest {
 				+ " _     _  _  _  _  _  _    \n" //
 				+ "| || || || || || || ||_   |\n" //
 				+ "|_||_||_||_||_||_||_| _|  |\n\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("000000051"));
 	}
 
@@ -187,8 +188,8 @@ public class StoryFourTest {
 				+ "    _  _  _  _  _  _     _ \n" //
 				+ "|_||_|| ||_||_   |  |  | _ \n" //
 				+ "  | _||_||_||_|  |  |  | _|\n\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains("490867715"));
 	}
 }

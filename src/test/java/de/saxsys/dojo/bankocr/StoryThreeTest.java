@@ -1,6 +1,7 @@
 package de.saxsys.dojo.bankocr;
 
-import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
+import static de.saxsys.dojo.bankocr.TestUtils.executeScannerFor;
+import static de.saxsys.dojo.bankocr.TestUtils.getResultsFromFile;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
@@ -28,7 +29,7 @@ import org.junit.Test;
 public class StoryThreeTest {
 
 	@After
-	public void removeDummyFile() {
+	public void removeDummyFiles() {
 		TestUtils.removeDummyFiles();
 	}
 
@@ -38,8 +39,8 @@ public class StoryThreeTest {
 				"                           \n" + //
 				"  | _|  |  |  |  |  |  |  |\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains(startsWith("1?1111111")));
 	}
 
@@ -49,8 +50,8 @@ public class StoryThreeTest {
 				"                           \n" + //
 				"  | _|  |  |  |  |  |  |  |\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				contains(endsWith(" ILL")));
 	}
 }

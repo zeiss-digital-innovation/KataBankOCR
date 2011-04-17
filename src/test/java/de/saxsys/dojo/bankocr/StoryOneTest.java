@@ -1,13 +1,11 @@
 package de.saxsys.dojo.bankocr;
 
-import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
+import static de.saxsys.dojo.bankocr.TestUtils.executeScannerFor;
 import static de.saxsys.dojo.bankocr.TestUtils.getResultsFromFile;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
-
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Test;
@@ -39,7 +37,7 @@ import org.junit.Test;
 public class StoryOneTest {
 
 	@After
-	public void removeTestFile() {
+	public void removeTestFiles() {
 		TestUtils.removeDummyFiles();
 	}
 
@@ -50,7 +48,8 @@ public class StoryOneTest {
 				"| || || || || || || || || |\n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
 		executeScannerFor(str);
-		assertThat(getResultsFromFile(), hasItem(startsWith("000000000")));
+		assertThat(getResultsFromFile(), //
+				hasItem(startsWith("000000000")));
 	}
 
 	@Test
@@ -62,10 +61,6 @@ public class StoryOneTest {
 		executeScannerFor(str);
 		assertThat(getResultsFromFile(), //
 				hasItem(startsWith("222222222")));
-	}
-
-	private List<String> executeScannerFor(String str) throws Exception {
-		return new OcrScanner().read(createDummyFileFor(str));
 	}
 
 	@Test

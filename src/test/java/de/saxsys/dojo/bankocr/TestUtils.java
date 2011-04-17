@@ -57,4 +57,8 @@ public class TestUtils {
 
 		return results;
 	}
+
+	public static void executeScannerFor(String str) throws Exception {
+		new OcrScanner().read(createDummyFileFor(str));
+	}
 }
