@@ -30,43 +30,38 @@ public class StoryTwoTest {
 
 	@Test
 	public void nineZerosAreValid() throws Exception {
-
-		AccountNumberValidator validator = new AccountNumberValidator();
-		Assert.assertThat(validator.isValid("000000000"), is(true));
+		Assert.assertThat(AccountNumberValidator.isValid("000000000"), is(true));
 	}
 
 	@Test
 	public void eigthZerosAndOneOneAreNotValid() throws Exception {
 
-		AccountNumberValidator validator = new AccountNumberValidator();
-		Assert.assertThat(validator.isValid("000000001"), is(false));
+		Assert.assertThat(AccountNumberValidator.isValid("000000001"),
+				is(false));
 	}
 
 	@Test
 	public void NineteenAtTheEndIsValid() throws Exception {
 
-		AccountNumberValidator validator = new AccountNumberValidator();
-		Assert.assertThat(validator.isValid("000000019"), is(true));
+		Assert.assertThat(AccountNumberValidator.isValid("000000019"), is(true));
 	}
 
 	@Test
 	public void OneTwoThreeAtTheEndIsNotValid() throws Exception {
 
-		AccountNumberValidator validator = new AccountNumberValidator();
-		Assert.assertThat(validator.isValid("000000123"), is(false));
+		Assert.assertThat(AccountNumberValidator.isValid("000000123"),
+				is(false));
 	}
 
 	@Test
 	public void OneTwoFourAtTheEndIsValid() throws Exception {
 
-		AccountNumberValidator validator = new AccountNumberValidator();
-		Assert.assertThat(validator.isValid("000000124"), is(true));
+		Assert.assertThat(AccountNumberValidator.isValid("000000124"), is(true));
 	}
 
 	@Test
 	public void OneInFrontAndTwoAtTheEndIsValid() throws Exception {
 
-		AccountNumberValidator validator = new AccountNumberValidator();
-		Assert.assertThat(validator.isValid("100000002"), is(true));
+		Assert.assertThat(AccountNumberValidator.isValid("100000002"), is(true));
 	}
 }

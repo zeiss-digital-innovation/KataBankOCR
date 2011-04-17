@@ -63,7 +63,7 @@ public class OcrScanner {
 				validNumbers.add(validAccountNumber);
 			}
 		}
-		return writeAccountNumbers(validNumbers, "result.txt");
+		return validNumbers;
 	}
 
 	private String getValidNumberIfExists(String invalidAccountNumber,

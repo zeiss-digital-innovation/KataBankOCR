@@ -1,10 +1,13 @@
 package de.saxsys.dojo.bankocr;
 
 import static de.saxsys.dojo.bankocr.TestUtils.createDummyFileFor;
+import static de.saxsys.dojo.bankocr.TestUtils.getResultsFromFile;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
+
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Test;
@@ -46,9 +49,8 @@ public class StoryOneTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				"| || || || || || || || || |\n" + //
 				"|_||_||_||_||_||_||_||_||_|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("000000000")));
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), hasItem(startsWith("000000000")));
 	}
 
 	@Test
@@ -57,9 +59,13 @@ public class StoryOneTest {
 				" _  _  _  _  _  _  _  _  _ \n" + //
 				" _| _| _| _| _| _| _| _| _|\n" + //
 				"|_ |_ |_ |_ |_ |_ |_ |_ |_ \n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), //
 				hasItem(startsWith("222222222")));
+	}
+
+	private List<String> executeScannerFor(String str) throws Exception {
+		return new OcrScanner().read(createDummyFileFor(str));
 	}
 
 	@Test
@@ -68,9 +74,8 @@ public class StoryOneTest {
 				"                           \n" + //
 				"|_||_||_||_||_||_||_||_||_|\n" + //
 				"  |  |  |  |  |  |  |  |  |\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("444444444")));
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), hasItem(startsWith("444444444")));
 	}
 
 	@Test
@@ -79,9 +84,8 @@ public class StoryOneTest {
 				"    _  _     _  _  _  _  _ \n" + //
 				"  | _| _||_||_ |_   ||_||_|\n" + //
 				"  ||_  _|  | _||_|  ||_| _|\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
-				hasItem(startsWith("123456789")));
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), hasItem(startsWith("123456789")));
 	}
 
 	@Test
@@ -93,8 +97,8 @@ public class StoryOneTest {
 				+ " _  _  _  _  _  _  _  _  _ \n" //
 				+ "| || || || || || || || || |\n" //
 				+ "|_||_||_||_||_||_||_||_||_|\n\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)),
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(),
 				contains(startsWith("123456789"), startsWith("000000000")));
 	}
 
@@ -110,8 +114,8 @@ public class StoryOneTest {
 				+ " _  _  _  _  _  _  _  _  _ \n" //
 				+ "| || || || || || || || || |\n" //
 				+ "|_||_||_||_||_||_||_||_||_|\n\n";
-		OcrScanner scanner = new OcrScanner();
-		assertThat(scanner.read(createDummyFileFor(str)), contains( //
+		executeScannerFor(str);
+		assertThat(getResultsFromFile(), contains( //
 				startsWith("686666666"), //
 				startsWith("123456789"), //
 				startsWith("000000000")));
