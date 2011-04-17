@@ -29,7 +29,7 @@ public class StoryThreeTest {
 
 	@After
 	public void removeDummyFile() {
-		TestUtils.removeDummyFile();
+		TestUtils.removeDummyFiles();
 	}
 
 	@Test

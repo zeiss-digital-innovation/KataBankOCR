@@ -22,8 +22,10 @@ public class TestUtils {
 		return new File(FILE_NAME);
 	}
 
-	public static void removeDummyFile() {
+	public static void removeDummyFiles() {
 		File file = new File(FILE_NAME);
+		assertThat(file.delete(), is(true));
+		file = new File(FILE_NAME + ".result");
 		assertThat(file.delete(), is(true));
 	}
 }

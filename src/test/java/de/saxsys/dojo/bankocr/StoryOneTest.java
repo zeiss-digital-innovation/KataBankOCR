@@ -37,7 +37,7 @@ public class StoryOneTest {
 
 	@After
 	public void removeTestFile() {
-		TestUtils.removeDummyFile();
+		TestUtils.removeDummyFiles();
 	}
 
 	@Test

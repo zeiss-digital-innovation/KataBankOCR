@@ -1,6 +1,8 @@
 package de.saxsys.dojo.bankocr;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +28,8 @@ public class OcrScanner {
 					getEvaluatedNumber(signsOfALine, sb.toString()));
 		}
 
-		return accountNumberResults;
+		return writeAccountNumbers( //
+				accountNumberResults, accountFile.getName() + ".result");
 	}
 
 	private String getEvaluatedNumber(List<ScannedSign> signs, String number) {
@@ -60,7 +63,7 @@ public class OcrScanner {
 				validNumbers.add(validAccountNumber);
 			}
 		}
-		return validNumbers;
+		return writeAccountNumbers(validNumbers, "result.txt");
 	}
 
 	private String getValidNumberIfExists(String invalidAccountNumber,
@@ -79,5 +82,29 @@ public class OcrScanner {
 		}
 
 		return "";
+	}
+
+	private List<String> writeAccountNumbers(
+			final List<String> accountNumberResults, String filename) {
+
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(filename);
+			for (String number : accountNumberResults) {
+				fw.write(number);
+				fw.append(System.getProperty("line.separator"));
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("some trouble", e);
+		} finally {
+			if (fw != null)
+				try {
+					fw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+
+		return accountNumberResults;
 	}
 }
